@@ -1,0 +1,56 @@
+<div class="user-dashboard">
+  <!-- Sidebar for User Details -->
+  <div class="sidebar">
+    <!-- User Image (Gender-based) -->
+    <div class="user-image">
+      <img [src]="getUserImage()" alt="profile picture" />
+    </div>
+    <h2>Welcome, {{ user.username }}</h2>
+    <div class="user-details">
+      <p><strong>Email: </strong> {{ user.email }}</p>
+      <p><strong>Role: </strong> {{ user.role }}</p>
+      <p><strong>Gender: </strong> {{ user.gender }}</p>
+      <p><strong>Contact: </strong>{{ user.contact}}</p>
+    </div>
+  </div>
+  <div class="main-content">
+    <h3>Your Tasks</h3>
+    <div class="task-container">
+      <div *ngFor="let task of tasks" class="task-card">   
+        <h3><strong>Title: </strong>{{ task.title }}</h3>
+        <p><strong>Description: </strong>{{ task.description }}</p>
+        <p><strong>Start Date: </strong>{{ task.startDate | date:'mediumDate' }}</p>
+        <p><strong>Due Date: </strong>{{ task.dueDate | date:'mediumDate' }}</p>
+      
+        <label>Status:</label>
+        <select [(ngModel)]="task.status" (change)="updateStatus(task)">
+          <option value="Pending">Pending</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Completed">Completed</option>
+        </select>
+      
+        <div class="comments-section">
+          <div class="comments-header">
+            <h5>Comments</h5>
+            <button class="toggle-comments" (click)="toggleComments(task)">
+              {{ task.showComments ? 'Hide Comments' : 'Show Comments' }}
+            </button>
+          </div>
+          
+          <div class="comments-content" [ngClass]="{'hidden': !task.showComments}">
+            <ul>
+              <li *ngFor="let comment of task.comments">
+                {{ comment.message }}
+              </li>
+            </ul>
+            
+            <div class="add-comment">
+              <textarea [(ngModel)]="task.newComment" placeholder="Add a comment..."></textarea>
+              <button (click)="sendComment(task)">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

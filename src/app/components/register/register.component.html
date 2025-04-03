@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <div class="container">
+    <!-- Animation Side -->
+    <div class="animation-side">
+      <h1>Join Us!</h1>
+    </div>
+
+    <!-- Register Form -->
+    <div class="register-container">
+      <h2>Register</h2>
+      <form (ngSubmit)="registerUser()" #registerForm="ngForm">
+        <!-- Username Input -->
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            placeholder="Enter your username"
+            [(ngModel)]="user.username"
+            name="username"
+            required
+            minlength="3"
+            #usernameInput="ngModel"
+          />
+          <!-- Validation Messages for Username -->
+          <div *ngIf="usernameInput.invalid && (usernameInput.dirty || usernameInput.touched)" class="validation-error">
+            <div *ngIf="usernameInput.errors?.['required']">Username is required.</div>
+            <div *ngIf="usernameInput.errors?.['minlength']">Username must be at least 3 characters long.</div>
+          </div>
+        </div>
+
+        <!-- Email Input -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            [(ngModel)]="user.email"
+            name="email"
+            required
+            #emailInput="ngModel"
+          />
+          <!-- Validation Messages for Email -->
+          <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="validation-error">
+            <div *ngIf="emailInput.errors?.['required']">Email is required.</div>
+            <div *ngIf="emailInput.errors?.['email']">Please enter a valid email address.</div>
+          </div>
+        </div>
+
+        <!-- Password Input -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            [(ngModel)]="user.password"
+            name="password"
+            required
+            minlength="6"
+            #passwordInput="ngModel"
+          />
+          <!-- Validation Messages for Password -->
+          <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="validation-error">
+            <div *ngIf="passwordInput.errors?.['required']">Password is required.</div>
+            <div *ngIf="passwordInput.errors?.['minlength']">Password must be at least 6 characters long.</div>
+          </div>
+        </div>
+
+        <!-- Gender Dropdown -->
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <select id="gender" [(ngModel)]="user.gender" name="gender" required>
+            <option value="">Select Gender</option>
+            <option value="MALE">Male</option>
+            <option value="FEMALE">Female</option>
+            <option value="OTHER">Other</option>
+          </select>
+          <!-- Validation Messages for Gender -->
+          <div *ngIf="registerForm.submitted && !user.gender" class="validation-error">
+            Gender is required.
+          </div>
+        </div>
+
+        <!-- Contact Input -->
+        <div class="form-group">
+          <label for="contact">Contact</label>
+          <input
+            type="tel"
+            id="contact"
+            placeholder="Enter your contact number"
+            [(ngModel)]="user.contact"
+            name="contact"
+            required
+            pattern="[0-9]{10}"
+            #contactInput="ngModel"
+          />
+          <!-- Validation Messages for Contact -->
+          <div *ngIf="contactInput.invalid && (contactInput.dirty || contactInput.touched)" class="validation-error">
+            <div *ngIf="contactInput.errors?.['required']">Contact number is required.</div>
+            <div *ngIf="contactInput.errors?.['pattern']">Please enter a valid 10-digit contact number.</div>
+          </div>
+        </div>
+
+        <!-- Role Dropdown -->
+        <div class="form-group">
+          <label for="role">Role</label>
+          <select id="role" [(ngModel)]="user.role" name="role">
+            <option value="USER">USER</option>
+            <option value="ADMIN">ADMIN</option>
+          </select>
+        </div>
+
+        <!-- Error Message -->
+        <div *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" [disabled]="registerForm.invalid">Register</button>
+      </form>
+
+      <p>Already have an accouant? <a routerLink="/login">Login</a></p>
+    </div>
+  </div>
+</body>
+</html>

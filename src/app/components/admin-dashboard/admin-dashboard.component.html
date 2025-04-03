@@ -1,0 +1,71 @@
+<div class="admin-dashboard">
+  <h2>Welcome to Admin Dashboard</h2>
+  
+  <!-- Post Task Modal ,it will refresh the task list(loadtasks()),-->
+  <app-post-task *ngIf="showPostTask" (taskPosted)="loadTasks()" (closePostModal)="closePostTaskModal()"></app-post-task>
+
+  <!-- Edit Task Modal -->
+  <app-edit-task *ngIf="selectedTask" [task]="selectedTask" (taskUpdated)="loadTasks()" (closeEditTaskModal)="closeEditTaskModal()"></app-edit-task>
+
+  <!-- Search Bar -->
+  <div class="filter-container">
+    <div class="search-bar">
+      <input type="text" placeholder="Search tasks..." [(ngModel)]="searchTerm">
+    </div>
+  
+    <div class="status-filter">
+      <label for="status">Filter by Status:</label>
+      <select id="status" [(ngModel)]="selectedStatus" (change)="onStatusFilterChange(selectedStatus)">
+        <option value="all">All Tasks</option>
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+    </div>
+  
+    <div class="post-task-btn">
+      <button (click)="openPostTaskModal()">Post Task</button>
+    </div>
+  </div>
+  
+  <section class="task-list-container">
+    <div class="task-list-item" *ngFor="let task of filteredTasks">
+      <!-- Task Header -->
+      <div class="task-header">
+        <h3 class="task-title">{{ task.title }}</h3>
+        <button class="btn-view" (click)="toggleTaskDetails(task)">
+          {{ task.showDetails ? 'Hide Details' : 'View Details' }}
+        </button>
+      </div>
+  
+  <!-- Task List -->
+  <div *ngIf="task.showDetails" class="task-details">
+    <p class="task-description"><strong>Description:</strong> {{ task.description }}</p>
+    <p class="task-assigned"><strong>Assigned To:</strong> {{ task.assignedUser.username }}</p>
+    <p class="task-status"><strong>Status:</strong> {{ task.status }}</p>
+    <p class="task-date"><strong>Start Date:</strong> {{ task.startDate | date:'mediumDate' }}</p>
+    <p class="task-date"><strong>Due Date:</strong> {{ task.dueDate | date:'mediumDate' }}</p>
+
+    <!-- Edit and Delete Buttons -->
+    <div class="task-actions">
+      <button class="btn-edit" (click)="editTask(task)">Edit</button>
+      <button class="btn-delete" (click)="deleteTask(task.id)">Delete</button>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="comments-section">
+      <h4 class="comments-heading">Comments from Users:</h4>
+      <ul class="comments-list">
+        <li *ngFor="let comment of task.comments" class="comment-item">
+          {{ comment.message }}
+        </li>
+      </ul>
+      <div class="admin-comment-box">
+        <textarea [(ngModel)]="task.adminReply" placeholder="Reply to this task..." class="comment-textarea"></textarea>
+        <button class="btn-send-reply" (click)="sendAdminReply(task)">Send Reply</button>
+      </div>
+    </div>
+  </div>
+    </div>
+    </section>
+</div>

@@ -1,0 +1,57 @@
+<div class="modal-overlay">
+  <div class="edit-task-modal">
+    <h2>Edit Task</h2>
+
+    <!-- Title Input -->
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input id="title" type="text" [(ngModel)]="task.title" required />
+    </div>
+
+    <!-- Description Textarea -->
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea id="description" [(ngModel)]="task.description" required></textarea>
+    </div>
+
+    <!-- Assign To Dropdown -->
+    <div class="form-group">
+      <label for="assign-to">Assign To:</label>
+      <select id="assign-to" [(ngModel)]="task.assignedUserId">
+        <option *ngFor="let user of users" [value]="user.id">
+          {{ user.name }}
+        </option>
+      </select>
+      <p class="selected-user">Assigned User ID: {{ task.assignedUserId }}</p>
+    </div>
+
+    <!-- Status Dropdown -->
+    <div class="form-group">
+      <label for="status">Status:</label>
+      <select id="status" [(ngModel)]="task.status">
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+    </div>
+
+    <!-- Start Date Input -->
+    <div class="form-group">
+      <label for="start-date">Start Date:</label>
+      <input id="start-date" type="text" [(ngModel)]="task.startDate" placeholder="dd/MM/yyyy" required />
+    </div>
+
+    <!-- Due Date Input -->
+    <div class="form-group">
+      <label for="due-date">Due Date:</label>
+      <input id="due-date" type="text" [(ngModel)]="task.dueDate" placeholder="dd/MM/yyyy" required />
+    </div>
+
+    <!-- Button Group -->
+    <div class="button-group">
+      <button class="submit-btn" (click)="updateTask()">Save</button>
+      <button class="cancel-btn" (click)="cancelEdit()">Cancel</button>
+      <button class="cancel-btn" (click)="closeModal()">Close</button>
+    </div>
+  </div>
+</div>  

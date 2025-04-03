@@ -1,0 +1,55 @@
+<div class="modal-overlay" *ngIf="true">
+  <div class="post-task-modal" [@modalAnimation]>
+    <h2>Post a New Task</h2>
+
+    <!-- Title Input -->
+    <div class="form-group">
+      <label>Title:</label>
+      <input type="text" [(ngModel)]="task.title" placeholder="Enter task title" required>
+    </div>
+
+    <!-- Description Input -->
+    <div class="form-group">
+      <label>Description:</label>
+      <textarea [(ngModel)]="task.description" placeholder="Enter task description" required></textarea>
+    </div>
+
+    <!-- Assign To Dropdown -->
+    <div class="form-group">
+      <label>Assign To:</label>
+      <select [(ngModel)]="task.assignedUserId">
+        <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
+      </select>
+      <p class="selected-user">Selected User ID: {{ task.assignedUserId }}</p>
+    </div>
+
+    <!-- Status Dropdown -->
+    <div class="form-group">
+      <label>Status:</label>
+      <select [(ngModel)]="task.status">
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+    </div>
+
+    <!-- Start Date Input -->
+    <div class="form-group">
+      <label>Start Date:</label>
+      <input type="date" [(ngModel)]="task.startDate" name="startDate" required>
+    </div>
+
+    <!-- Due Date Input -->
+    <div class="form-group">
+      <label>Due Date:</label>
+      <input type="date" [(ngModel)]="task.dueDate" name="dueDate" required>
+    </div>
+
+    <!-- Button Group -->
+    <div class="button-group">
+      <button class="submit-btn" (click)="postTask()">Submit</button>
+      <button class="cancel-btn" (click)="closeModal()">Cancel</button>
+      <button class="cancel-btn" (click)="closeTaskModal()">Close</button>
+    </div>
+  </div>
+</div>

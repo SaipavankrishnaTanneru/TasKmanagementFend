@@ -1,0 +1,15 @@
+<div class="app-container">
+  <!--- Navigation Bar -->
+  <nav>
+    <ul>
+      <div class="title">TaskManagement</div> <!-- Title on the left -->
+      <div class="nav-links">
+        <li><a routerLink="/" routerLinkActive="active">Home</a></li>
+        <li><a routerLink="/login" routerLinkActive="active" *ngIf="!isLoggedIn || currentRoute === '/'">Login</a></li>
+        <li><a routerLink="/register" routerLinkActive="active" *ngIf="!isLoggedIn || currentRoute === '/'">Register</a></li>
+        <li><a (click)="isLogout()" *ngIf="isLoggedIn && currentRoute !== '/'">Logout</a></li>
+      </div>
+    </ul>
+  </nav>
+  <router-outlet></router-outlet> <!--it is a placeholder to load components based on routes-->
+</div>

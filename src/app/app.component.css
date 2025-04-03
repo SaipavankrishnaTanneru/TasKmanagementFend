@@ -1,0 +1,56 @@
+/* Basic styles for the app container */
+.app-container {
+    min-height: 100vh; /* Ensure the container takes full viewport height */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Navigation bar styles */
+  nav {
+    background-color: rgb(80, 80, 144);
+    padding: 10px;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between; /* Space between title and links */
+    align-items: center; /* Vertically center items */
+  }
+  
+  nav ul .title {
+    color: whitesmoke;
+    font-size: 2em;
+    font-weight: bold;
+  }
+  
+  nav ul .nav-links {
+    display: flex;
+    align-items: center; /* Align links vertically */
+  }
+  
+  nav ul .nav-links li {
+    margin-left: 15px; /* Adds space between navigation items */
+  }
+  
+  nav ul .nav-links li a {
+    color: whitesmoke;
+    text-decoration: none;
+    padding: 8px 15px;
+    display: inline-block;
+  }
+  
+  nav ul .nav-links li a:hover,
+  nav ul .nav-links li a.active {
+    background-color: black;
+    border-radius: 4px;
+  }
+  
+  /* Ensure all pages have black background */
+  .page-container {
+    flex: 1; /* Takes up remaining space in the app container */
+    background-color: #000; /* Black background */
+    padding: 20px; /* Add some padding for content */
+  }

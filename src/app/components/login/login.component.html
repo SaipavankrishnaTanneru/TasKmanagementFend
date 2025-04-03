@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Add your CSS styles here */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      display: flex;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .animation-side {
+      flex: 1;
+      background: #2c3e50;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .animation-side img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-bottom: 1.5rem;
+    }
+
+    .animation-side h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .login-container {
+      flex: 1;
+      padding: 2.5rem;
+      background: #f9f9f9;
+    }
+
+    .login-container h2 {
+      font-size: 1.75rem;
+      color: #2c3e50;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus {
+      border-color: #2c3e50;
+      outline: none;
+    }
+
+    .validation-error {
+      color: #e74c3c;
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 0.75rem;
+      background: #2c3e50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+      background: #1a252f;
+    }
+
+    .social-login {
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+
+    .social-login p {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+
+    .social-login .social-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .social-buttons button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .social-buttons button.google {
+      background: #db4437;
+      color: #fff;
+    }
+
+    .social-buttons button.google:hover {
+      background: #c23321;
+    }
+
+    .social-buttons button.outlook {
+      background: #0072c6;
+      color: #fff;
+    }
+
+    .social-buttons button.outlook:hover {
+      background: #005a9e;
+    }
+
+    .register-link {
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+
+    .register-link a {
+      color: #2c3e50;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .register-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Animation Side -->
+    <div class="animation-side">
+      <img src="../../../assets/images/images1.jpg" alt="picture" />
+      <h1>Welcome</h1>
+    </div>
+
+    <!-- Login Form -->
+    <div class="login-container">
+      <h2>Login</h2>
+      <form (ngSubmit)="loginUser()" #loginForm="ngForm">
+        <!-- Username Input -->
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            placeholder="Enter your username"
+            [(ngModel)]="username"
+            name="username"
+            required
+            minlength="3"
+            #usernameInput="ngModel"
+          />
+          <!-- Validation Messages for Username -->
+          <div *ngIf="usernameInput.invalid && (usernameInput.dirty || usernameInput.touched)" class="validation-error">
+            <div *ngIf="usernameInput.errors?.['required']">Username is required.</div>
+            <div *ngIf="usernameInput.errors?.['minlength']">Username must be at least 3 characters long.</div>
+          </div>
+        </div>
+
+        <!-- Password Input -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            [(ngModel)]="password"
+            name="password"
+            required
+            minlength="6"
+            #passwordInput="ngModel"
+          />
+          <!-- Validation Messages for Password -->
+          <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="validation-error">
+            <div *ngIf="passwordInput.errors?.['required']">Password is required.</div>
+            <div *ngIf="passwordInput.errors?.['minlength']">Password must be at least 6 characters long.</div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" [disabled]="loginForm.invalid">Login</button>
+      </form>
+
+      <!-- Social Login Section -->
+      <div class="social-login">
+        <p>Or login with:</p>
+        <div class="social-buttons">
+          <!-- Google Login Button -->
+          <button class="google" (click)="loginWithGoogle()">
+            <i class="fab fa-google"></i> Google
+          </button>
+          <!-- Outlook Login Button -->
+          <button class="outlook" (click)="loginWithOutlook()">
+            <i class="fab fa-microsoft"></i> Outlook
+          </button>
+        </div>
+      </div>
+
+      <!-- Register Link -->
+      <div class="register-link">
+        <p>Don't have an account? <a routerLink="/register">Register</a></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
